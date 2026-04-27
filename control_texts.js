@@ -38,7 +38,6 @@ function generateTexts() {
         if(num > 1){
             let n = parseInt(this.id.split("_")[1]);
             console.log(n);
-            // 削除後の番号振り直し
             for (let i = n + 1; i <= num; i++) {
                 let elem = document.getElementById(`context_${i}`);
                 if (elem) {
@@ -83,8 +82,7 @@ function generateImage(){
         img.onload = function() {
             var canvas = document.createElement('canvas');
             var ctx = canvas.getContext('2d');
-            
-            // 【対策1】 NaNを防ぐため、画像の本来の高さを確実に数値として取得
+
             var canvasWidth = Number(img.naturalWidth || img.width);
             var canvasHeight = Number(img.naturalHeight || img.height);
             canvas.width = canvasWidth;
@@ -94,7 +92,6 @@ function generateImage(){
             
             var text = "";
             for (let i = 1; i <= num; i++) {
-                // 要素が見つからない場合のエラーも防止
                 var dateVal = document.getElementById(`date_${i}`) ? document.getElementById(`date_${i}`).value : "";
                 var liveVal = document.getElementById(`live_${i}`) ? document.getElementById(`live_${i}`).value : "";
                 var smallVal = document.getElementById(`small_${i}`) ? document.getElementById(`small_${i}`).value : "";
@@ -113,32 +110,25 @@ function generateImage(){
                 if (token.text === '\n') lineCount++;
             });
             
-            // テキストブロック全体の高さを計算
             var totalBlockHeight = (lineCount - 1) * lineHeight;
             
-            // 中央配置の計算
             var textY = (canvasHeight / 2) - (totalBlockHeight / 2) + (defaultFontSize / 3) + 50;
             
-            // 【デバッグ用】計算結果をコンソールに出力
             console.log(`キャンバスの高さ: ${canvasHeight}px`);
             console.log(`テキストの全高: ${totalBlockHeight}px`);
             console.log(`計算された開始位置(textY): ${textY}`);
 
-            // 【対策2】 万が一 NaN になった場合の強制リセット
             if (isNaN(textY)) {
                 console.error("textYがNaNになったため、中央に強制リセットしました。");
                 textY = canvasHeight / 2;
             }
-
-            // 【対策3】 画面外（上）にはみ出す場合のストッパー
-            // 行数が多すぎて textY がマイナスになると画面外に消えるため、最低でも上から100pxは余白を作る
             var topPadding = 100; 
             if (textY < topPadding) {
                 console.warn("テキストが長すぎるため、上揃えに調整しました。");
                 textY = topPadding;
             }
             
-            var textX = 0; // 左寄せ
+            var textX = 0; 
             
             ctx.fillStyle = 'white';
             ctx.textAlign = 'left';
@@ -174,7 +164,6 @@ function generateImage(){
     });
 }
 
-// 制御文字をパースしてトークン配列を返す
 function parseControlCharacters(text, defaultSize) {
     var tokens = [];
     var currentSize = defaultSize;
