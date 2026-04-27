@@ -1,191 +1,121 @@
-@font-face {
-    font-family: 'NagomiGokubosoGothic-ExtraLight';
-    src: url('NagomiGokubosoGothic-ExtraLight.otf') format('opentype');
-}
-
 :root {
     --main-color: #3b82f6;
     --main-hover: #2563eb;
     --danger-color: #ef4444;
-    --danger-hover: #dc2828;
-    --bg-color: #f9fafb;
-    --text-color: #1f2937;
+    --bg-color: #f3f4f6;
+    --border-color: #9ca3af;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color); /* 画面全体に背景色を敷き詰める */
+    min-height: 100dvh; /* スマホのURLバーを除いた「実際の画面の高さ」を最低限確保する */
 }
 
 body {
-    font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    padding: 40px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 20px 10px 40px 10px; /* 一番下に少しだけスクロール用の安全な余白(40px)を持たせる */
     text-align: center;
+    font-size: 32px;
+    box-sizing: border-box; /* paddingを含めて高さを計算させる */
 }
 
 h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    color: #111827;
+    font-size: 72px;
+    margin-bottom: 20px;
 }
 
-body > p {
-    color: #6b7280;
-    margin-bottom: 30px;
-}
-
+/* メインボタン：スマホでも押しやすいよう大きく */
 body > button {
     background-color: var(--main-color);
     color: white;
     border: none;
-    padding: 12px 24px;
-    margin: 0 10px 20px 10px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
-}
-
-body > button:hover {
-    background-color: var(--main-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.4);
-}
-
-ul[id^="context_"] {
-    background: white;
-    padding: 20px 25px;
-    margin: 0 auto 15px auto;
+    padding: 16px 20px;
+    margin: 8px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    max-width: 900px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    list-style: none;
-    box-sizing: border-box;
-}
-
-ul[id^="context_"] h2 {
-    margin: 0;
-    font-size: 24px;
-    color: var(--main-color);
-    min-width: 30px;
-}
-
-ul[id^="context_"] p {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 600;
-    color: #4b5563;
-    white-space: nowrap;
-}
-
-:root {
-    --main-color: #3b82f6;
-    --main-hover: #2563eb;
-    --danger-color: #ef4444;
-    --danger-hover: #dc2828;
-    --border-color: #9ca3af;
-    --border-color: #d1d5db;
-}
-
-body {
-    font-family: sans-serif;
-    background-color: var(--bg-color);
-    padding: 40px 20px;
-    text-align: center;
-}
-
-body > button {
-    background-color: var(--main-color);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    margin: 10px;
-    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 18px; /* 文字を大きく */
+    width: 90%; /* スマホで押しやすい幅広サイズ */
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+/* 各項目の枠 */
 ul[id^="context_"] {
     background: white;
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
     padding: 20px;
     margin: 15px auto;
-    max-width: 800px;
+    max-width: 95%;
     list-style: none;
     display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column; /* スマホでは縦に並べる */
+    align-items: flex-start;
+    gap: 12px;
     position: relative;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-ul[id^="context_"] h2 {
-    color: var(--main-color);
-    margin: 0;
-    margin-bottom: 8px;
-    min-width: 35px;
-    font-size: 24px;
-}
-
-/* ラベルテキスト */
-ul[id^="context_"] p {
-    margin: 0 0 6px 4px;
-    font-size: 13px;
-    font-weight: 800;
-    color: #374151;
-    text-align: left;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    background-color: #fafafa;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    color: #1f2937;
-    outline: none;
-    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     box-sizing: border-box;
 }
 
-input[type="text"]:hover {
-    border-color: #6b7280;
-    background-color: #ffffff;
+/* 番号を左上に配置 */
+ul[id^="context_"] h2 {
+    color: var(--main-color);
+    margin: 0;
+    font-size: 20px;
+}
+
+/* 各入力ブロック（ラベル＋入力欄）を幅いっぱいに */
+ul[id^="context_"] > div,
+ul[id^="context_"] > label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+ul[id^="context_"] p {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #4b5563;
+}
+
+/* テキスト入力欄：スマホのタップに最適化 */
+input[type="text"] {
+    width: 100%;
+    padding: 14px; /* タップしやすい高さ */
+    font-size: 18px; /* 入力時にズームされないよう16px以上に設定 */
+    background-color: #fafafa;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-appearance: none; /* iOSのデフォルトスタイルをリセット */
 }
 
 input[type="text"]:focus {
-    background-color: #ffffff;
     border-color: var(--main-color);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-
-div:has(> #date_1), div:has(> input[id^="date_"]) { flex: 1; }
-label:has(> input[id^="live_"]) { flex: 2; }
-label:has(> input[id^="small_"]) { flex: 3; }
-
-
+/* ✖ボタン：右上に配置 */
 .cancel-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
     background-color: #fee2e2;
     color: var(--danger-color);
     border: 2px solid var(--danger-color);
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    transition: all 0.2s;
-    margin-bottom: 6px;
-}
-
-.cancel-button:hover {
-    background-color: var(--danger-color);
-    color: white;
 }
